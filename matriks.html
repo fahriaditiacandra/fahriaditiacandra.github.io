@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Matriks | Dasar Scientific Computing Menggunakan Bahasa R</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.31 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Matriks | Dasar Scientific Computing Menggunakan Bahasa R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Matriks | Dasar Scientific Computing Menggunakan Bahasa R" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="Fahri Aditia" />
+
+
+<meta name="date" content="2023-02-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="variabel-dan-vektor.html"/>
+<link rel="next" href="factor.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Pendahuluan</a></li>
+<li class="chapter" data-level="1" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html"><i class="fa fa-check"></i><b>1</b> Mengenal Bahasa R</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#instalasi-r-dan-r-studio"><i class="fa fa-check"></i><b>1.1</b> Instalasi R dan R Studio</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#instalasi-r"><i class="fa fa-check"></i><b>1.1.1</b> Instalasi R</a></li>
+<li class="chapter" data-level="1.1.2" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#instalasi-r-studio"><i class="fa fa-check"></i><b>1.1.2</b> Instalasi R Studio</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#hello-world"><i class="fa fa-check"></i><b>1.2</b> Hello, World!</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#menulis-dan-menjalankan-kode-program-bahasa-r"><i class="fa fa-check"></i><b>1.2.1</b> Menulis dan Menjalankan Kode Program Bahasa R</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#mengenal-operator-dan-tipe-data"><i class="fa fa-check"></i><b>1.3</b> Mengenal Operator dan Tipe Data</a>
+<ul>
+<li class="chapter" data-level="1.3.1" data-path="mengenal-bahasa-r.html"><a href="mengenal-bahasa-r.html#operator"><i class="fa fa-check"></i><b>1.3.1</b> Operator</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html"><i class="fa fa-check"></i><b>2</b> Variabel dan Vektor</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#mengenal-dan-membuat-variabel"><i class="fa fa-check"></i><b>2.1</b> Mengenal dan Membuat Variabel</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#apa-itu-variabel"><i class="fa fa-check"></i><b>2.1.1</b> Apa itu Variabel?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#mendelkarasikan-dan-menampilkan-variabel"><i class="fa fa-check"></i><b>2.1.2</b> Mendelkarasikan dan Menampilkan Variabel</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#mengenal-dan-membuat-vektor"><i class="fa fa-check"></i><b>2.2</b> Mengenal dan Membuat Vektor</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#apa-itu-vektor"><i class="fa fa-check"></i><b>2.2.1</b> Apa itu Vektor?</a></li>
+<li class="chapter" data-level="2.2.2" data-path="variabel-dan-vektor.html"><a href="variabel-dan-vektor.html#membuat-dan-menampilkan-vektor"><i class="fa fa-check"></i><b>2.2.2</b> Membuat dan Menampilkan Vektor</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="matriks.html"><a href="matriks.html"><i class="fa fa-check"></i><b>3</b> Matriks</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="matriks.html"><a href="matriks.html#membuat-matriks"><i class="fa fa-check"></i><b>3.1</b> Membuat Matriks</a></li>
+<li class="chapter" data-level="3.2" data-path="matriks.html"><a href="matriks.html#operasi-aritmatika-pada-matriks"><i class="fa fa-check"></i><b>3.2</b> Operasi Aritmatika Pada Matriks</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="matriks.html"><a href="matriks.html#operasi-penjumlahan"><i class="fa fa-check"></i><b>3.2.1</b> Operasi Penjumlahan</a></li>
+<li class="chapter" data-level="3.2.2" data-path="matriks.html"><a href="matriks.html#operasi-pengurangan"><i class="fa fa-check"></i><b>3.2.2</b> Operasi Pengurangan</a></li>
+</ul></li>
+<li class="chapter" data-level="3.3" data-path="matriks.html"><a href="matriks.html#transpose-matriks"><i class="fa fa-check"></i><b>3.3</b> Transpose Matriks</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="matriks.html"><a href="matriks.html#apa-itu-transpose-matriks"><i class="fa fa-check"></i><b>3.3.1</b> Apa itu Transpose Matriks?</a></li>
+<li class="chapter" data-level="3.3.2" data-path="matriks.html"><a href="matriks.html#membuat-transpose-matriks"><i class="fa fa-check"></i><b>3.3.2</b> Membuat Transpose Matriks</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="matriks.html"><a href="matriks.html#determinan-matriks"><i class="fa fa-check"></i><b>3.4</b> Determinan Matriks</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="matriks.html"><a href="matriks.html#apa-itu-determinan-matriks"><i class="fa fa-check"></i><b>3.4.1</b> Apa itu Determinan Matriks?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="matriks.html"><a href="matriks.html#determinan-matriks-dalam-bahasa-r"><i class="fa fa-check"></i><b>3.4.2</b> Determinan Matriks Dalam Bahasa R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="matriks.html"><a href="matriks.html#adjoint-matriks"><i class="fa fa-check"></i><b>3.5</b> Adjoint Matriks</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="matriks.html"><a href="matriks.html#apa-itu-adjoint-matriks"><i class="fa fa-check"></i><b>3.5.1</b> Apa itu Adjoint Matriks?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="matriks.html"><a href="matriks.html#invers-matriks"><i class="fa fa-check"></i><b>3.6</b> Invers Matriks</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="matriks.html"><a href="matriks.html#apa-itu-invers-matriks"><i class="fa fa-check"></i><b>3.6.1</b> Apa itu Invers Matriks?</a></li>
+<li class="chapter" data-level="3.6.2" data-path="matriks.html"><a href="matriks.html#inverse-matriks-dalam-bahasa-r"><i class="fa fa-check"></i><b>3.6.2</b> Inverse Matriks Dalam Bahasa R</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="matriks.html"><a href="matriks.html#solusi-persamaan-linear-dengan-matriks"><i class="fa fa-check"></i><b>3.7</b> Solusi Persamaan Linear Dengan Matriks</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="matriks.html"><a href="matriks.html#solusi-persamaan-linear-dengan-bahasa-r"><i class="fa fa-check"></i><b>3.7.1</b> Solusi Persamaan Linear Dengan Bahasa R</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="factor.html"><a href="factor.html"><i class="fa fa-check"></i><b>4</b> Factor</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="factor.html"><a href="factor.html#apa-itu-factor"><i class="fa fa-check"></i><b>4.1</b> Apa itu Factor?</a></li>
+<li class="chapter" data-level="4.2" data-path="factor.html"><a href="factor.html#membuat-dan-menampilkan-factor"><i class="fa fa-check"></i><b>4.2</b> Membuat dan Menampilkan Factor</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frame.html"><a href="data-frame.html"><i class="fa fa-check"></i><b>5</b> Data Frame</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frame.html"><a href="data-frame.html#apa-itu-data-frame"><i class="fa fa-check"></i><b>5.1</b> Apa itu Data Frame?</a></li>
+<li class="chapter" data-level="5.2" data-path="data-frame.html"><a href="data-frame.html#membuat-dan-menampilkan-data-frame"><i class="fa fa-check"></i><b>5.2</b> Membuat dan Menampilkan Data Frame</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="list.html"><a href="list.html"><i class="fa fa-check"></i><b>6</b> List</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="list.html"><a href="list.html#apa-itu-list"><i class="fa fa-check"></i><b>6.1</b> Apa itu List?</a></li>
+<li class="chapter" data-level="6.2" data-path="list.html"><a href="list.html#membuat-dan-menampilkan-list"><i class="fa fa-check"></i><b>6.2</b> Membuat dan Menampilkan List</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="array.html"><a href="array.html"><i class="fa fa-check"></i><b>7</b> Array</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="array.html"><a href="array.html#apa-itu-array"><i class="fa fa-check"></i><b>7.1</b> Apa itu Array?</a></li>
+<li class="chapter" data-level="7.2" data-path="array.html"><a href="array.html#membuat-dan-menampilkan-array"><i class="fa fa-check"></i><b>7.2</b> Membuat dan Menampilkan Array</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="pengkondisian.html"><a href="pengkondisian.html"><i class="fa fa-check"></i><b>8</b> Pengkondisian</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="pengkondisian.html"><a href="pengkondisian.html#apa-itu-pengkondisian"><i class="fa fa-check"></i><b>8.1</b> Apa itu Pengkondisian?</a></li>
+<li class="chapter" data-level="8.2" data-path="pengkondisian.html"><a href="pengkondisian.html#jenis---jenis-pengkondisian"><i class="fa fa-check"></i><b>8.2</b> Jenis - Jenis Pengkondisian</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="pengkondisian.html"><a href="pengkondisian.html#if"><i class="fa fa-check"></i><b>8.2.1</b> IF</a></li>
+<li class="chapter" data-level="8.2.2" data-path="pengkondisian.html"><a href="pengkondisian.html#if---else"><i class="fa fa-check"></i><b>8.2.2</b> IF - ELSE</a></li>
+<li class="chapter" data-level="8.2.3" data-path="pengkondisian.html"><a href="pengkondisian.html#if---else-if---else"><i class="fa fa-check"></i><b>8.2.3</b> IF - ELSE IF - ELSE</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="pengungalan.html"><a href="pengungalan.html"><i class="fa fa-check"></i><b>9</b> Pengungalan</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="pengungalan.html"><a href="pengungalan.html#apa-itu-pengulangan"><i class="fa fa-check"></i><b>9.1</b> Apa itu Pengulangan?</a></li>
+<li class="chapter" data-level="9.2" data-path="pengungalan.html"><a href="pengungalan.html#jenis---jenis-pengulangan"><i class="fa fa-check"></i><b>9.2</b> Jenis - jenis pengulangan</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="pengungalan.html"><a href="pengungalan.html#for"><i class="fa fa-check"></i><b>9.2.1</b> FOR</a></li>
+<li class="chapter" data-level="9.2.2" data-path="pengungalan.html"><a href="pengungalan.html#while"><i class="fa fa-check"></i><b>9.2.2</b> WHILE</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="fungsi.html"><a href="fungsi.html"><i class="fa fa-check"></i><b>10</b> Fungsi</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="fungsi.html"><a href="fungsi.html#apa-itu-fungsi"><i class="fa fa-check"></i><b>10.1</b> Apa itu Fungsi?</a></li>
+<li class="chapter" data-level="10.2" data-path="fungsi.html"><a href="fungsi.html#membuat-dan-menampilkan-fungsi"><i class="fa fa-check"></i><b>10.2</b> Membuat dan Menampilkan Fungsi</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html"><i class="fa fa-check"></i><b>11</b> Built-in Function Pada Bahasa R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#apa-itu-built-in-function"><i class="fa fa-check"></i><b>11.1</b> Apa itu Built-in Function</a></li>
+<li class="chapter" data-level="11.2" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#fungsi---fungsi-built-in-function-pada-bahasa-r"><i class="fa fa-check"></i><b>11.2</b> Fungsi - fungsi built-in function pada bahasa r</a>
+<ul>
+<li class="chapter" data-level="11.2.1" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#fungsi-untuk-menampilkan-dataset"><i class="fa fa-check"></i><b>11.2.1</b> Fungsi Untuk Menampilkan Dataset</a></li>
+<li class="chapter" data-level="11.2.2" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#fungsi-yang-berkaitan-dengan-file"><i class="fa fa-check"></i><b>11.2.2</b> Fungsi yang berkaitan dengan file</a></li>
+<li class="chapter" data-level="11.2.3" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#membaca-file"><i class="fa fa-check"></i><b>11.2.3</b> Membaca File</a></li>
+<li class="chapter" data-level="11.2.4" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#menampilkan-data"><i class="fa fa-check"></i><b>11.2.4</b> Menampilkan Data</a></li>
+<li class="chapter" data-level="11.2.5" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#menampilkan-baris-dan-kolom"><i class="fa fa-check"></i><b>11.2.5</b> Menampilkan Baris dan Kolom</a></li>
+<li class="chapter" data-level="11.2.6" data-path="built-in-function-pada-bahasa-r.html"><a href="built-in-function-pada-bahasa-r.html#menggabungkan-data"><i class="fa fa-check"></i><b>11.2.6</b> Menggabungkan Data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html"><i class="fa fa-check"></i><b>12</b> Fungsi Matematika dan Statistika</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#fungsi-matematika"><i class="fa fa-check"></i><b>12.1</b> Fungsi Matematika</a>
+<ul>
+<li class="chapter" data-level="12.1.1" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#nilai-mutlak"><i class="fa fa-check"></i><b>12.1.1</b> Nilai Mutlak</a></li>
+<li class="chapter" data-level="12.1.2" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#logaritma-natural"><i class="fa fa-check"></i><b>12.1.2</b> Logaritma Natural</a></li>
+<li class="chapter" data-level="12.1.3" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#eksponensial"><i class="fa fa-check"></i><b>12.1.3</b> Eksponensial</a></li>
+<li class="chapter" data-level="12.1.4" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#faktorial"><i class="fa fa-check"></i><b>12.1.4</b> Faktorial</a></li>
+<li class="chapter" data-level="12.1.5" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#akar-kuadrat"><i class="fa fa-check"></i><b>12.1.5</b> Akar Kuadrat</a></li>
+<li class="chapter" data-level="12.1.6" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#pi"><i class="fa fa-check"></i><b>12.1.6</b> Pi</a></li>
+<li class="chapter" data-level="12.1.7" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#trigonometry"><i class="fa fa-check"></i><b>12.1.7</b> Trigonometry</a></li>
+</ul></li>
+<li class="chapter" data-level="12.2" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#fungsi-statistika"><i class="fa fa-check"></i><b>12.2</b> Fungsi Statistika</a>
+<ul>
+<li class="chapter" data-level="12.2.1" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#mean"><i class="fa fa-check"></i><b>12.2.1</b> Mean</a></li>
+<li class="chapter" data-level="12.2.2" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#median"><i class="fa fa-check"></i><b>12.2.2</b> Median</a></li>
+<li class="chapter" data-level="12.2.3" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#standard-deviasi"><i class="fa fa-check"></i><b>12.2.3</b> Standard Deviasi</a></li>
+<li class="chapter" data-level="12.2.4" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#penyortiran-data"><i class="fa fa-check"></i><b>12.2.4</b> Penyortiran Data</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="fungsi-matematika-dan-statistika.html"><a href="fungsi-matematika-dan-statistika.html#summary"><i class="fa fa-check"></i><b>12.3</b> summary()</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="visualisasi-data.html"><a href="visualisasi-data.html"><i class="fa fa-check"></i><b>13</b> Visualisasi Data</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="visualisasi-data.html"><a href="visualisasi-data.html#plot"><i class="fa fa-check"></i><b>13.1</b> Plot</a></li>
+<li class="chapter" data-level="13.2" data-path="visualisasi-data.html"><a href="visualisasi-data.html#barplot"><i class="fa fa-check"></i><b>13.2</b> BarPlot</a></li>
+<li class="chapter" data-level="13.3" data-path="visualisasi-data.html"><a href="visualisasi-data.html#histogram"><i class="fa fa-check"></i><b>13.3</b> Histogram</a></li>
+<li class="chapter" data-level="13.4" data-path="visualisasi-data.html"><a href="visualisasi-data.html#density-plot"><i class="fa fa-check"></i><b>13.4</b> Density Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="daftar-pustaka.html"><a href="daftar-pustaka.html"><i class="fa fa-check"></i>Daftar Pustaka</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Dasar Scientific Computing Menggunakan Bahasa R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="matriks" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Matriks<a href="matriks.html#matriks" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Dalam matematika, matriks merupakan susunan bilangan, simbol, atau ekspresi yang disusun dalam baris dan kolom sehingga membentuik bangun persegi yang disebut dengan istilah ordo. Berdasarkan definisinya, matriks dapat dijabarkan menjadi seperti berikut.</p>
+<p><span class="math display">\[\begin{bmatrix}a_{11} &amp;a_{12}  &amp;a_{13} \\ a_{21} &amp;a_{22}  &amp;a_{23} \\ a_{31} &amp;a_{32}  &amp;a_{33} \end{bmatrix}\]</span></p>
+<p>Matriks diatas bisa disebut juga matriks dengan matriks ordo 3x3, karena memiliki 3 baris dan 3 kolom. Dalam Bahasa R terutama dalam software R Studio sebuah matriks akan ditampilkan seperti berikut.</p>
+<pre><code>     [,1] [,2] [,3]
+[1,]   11   12   31
+[2,]   12   22   32
+[3,]   13   32   33</code></pre>
+<div id="membuat-matriks" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Membuat Matriks<a href="matriks.html#membuat-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Untuk membuat sebuah matriks kita bisa menggunakan fungsi matrix(). Berikut adalah format penulisan matrix.</p>
+<p>Untuk lebih jelasnya berikut adalah contoh penerapan fungsi matrix().</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="matriks.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb10-2"><a href="matriks.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    4    7
+[2,]    2    5    8
+[3,]    3    6    9</code></pre>
+<p>Pada contoh diatas dapat dipahami bahwa dalam membuat sebuah matriks kita harus menggunakan fungsi matrix yang didalamnya nanti akan terdapat data yang akan ditampilkan serta berapa jumlah baris dan kolom tersebut sehingga data - data yang ada pada matrix nantinya bisa dibagi beberapa bagian sesuai dengan berapa banyak jumlah baris dan kolomnya.</p>
+<p>Pada contoh diatas penulis menggunakan range angka 1 sampai 9 yang akan menghasilkan angka berupa angka 1 sampai dengan 9 sebagai data yang akan ditampilkan serta mengatur jumlah baris dan kolomnya masing - masing 3. Contoh diatas akan membentuk sebuah matriks yang memiliki ordo 3x3.</p>
+</div>
+<div id="operasi-aritmatika-pada-matriks" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Operasi Aritmatika Pada Matriks<a href="matriks.html#operasi-aritmatika-pada-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Pada bagian ini akan dibahas mengenai bagaimana melakukan operasi matriks dengan bahasa r. Bahasannya akan meliputi operasi penjumlahan, operasi pengurangan, operasi perkalian, dan operasi pembagian.</p>
+<div id="operasi-penjumlahan" class="section level3 hasAnchor" number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Operasi Penjumlahan<a href="matriks.html#operasi-penjumlahan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk melakukan operasi penjumlahan matriks, kita cukup menjumlahkan matriks a dan matriks b dengan syarat matriks yang akan kamu jumlahkan berada didalam sebuah variabel, contoh: A + B. Tapi sebelum mengenal lebih jauh mengenai operasi penjumlahan pada matriks, akan lebih baik mengetahui skema perhitungan dari sebuah matriks terlebih dahulu.</p>
+<p><span class="math display">\[
+A_{} = \begin {bmatrix} 1&amp;3 \\  2&amp;4 \end{bmatrix} + B = \begin{bmatrix}5 &amp; 6\\ 7 &amp; 8\end{bmatrix} = \begin{bmatrix}1 + 5 &amp; 2 + 6\\ 3 + 7 &amp; 4 + 8\end{bmatrix} = \begin{bmatrix}6 &amp; 8\\ 10 &amp; 12\end{bmatrix}
+\]</span></p>
+<p>Dalam menjumlahkan matriks yang dijumlahkan adalah masing - masing elemen matriks tersebut dengan syarat yakni ordonya tidak boleh beda atau harus sama. Berikut adalah contoh penjumlahan matriks dengan menggunakan bahasa r.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="matriks.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb12-2"><a href="matriks.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">10</span><span class="sc">:</span><span class="dv">19</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>Warning in matrix(c(10:19), 3, 3): data length [10] is not a sub-multiple or
+multiple of the number of rows [3]</code></pre>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="matriks.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> z <span class="ot">=</span> x <span class="sc">+</span> y</span>
+<span id="cb14-2"><a href="matriks.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">print</span>(z)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]   11   17   23
+[2,]   13   19   25
+[3,]   15   21   27</code></pre>
+<p>Dari contoh diatas dapat disimpulkan bahwa untuk menjumlahkan matriks dalam bahasa r kita hanya perlu menyimpan matrix a dan matrix b kedalam sebuah variabel lalu menjumlahkan kedua variabel tersebut dengan menggunakan operator penjumlahan.</p>
+<p>Dalam melakukan operasi pengurangan matriks yang dijumlahkan adalah masing - masing elemen matriks tersebut dengan syarat yakni ordonya tidak boleh beda atau harus sama. Berikut adalah contoh penjumlahan matriks dengan menggunakan bahasa r.</p>
+</div>
+<div id="operasi-pengurangan" class="section level3 hasAnchor" number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Operasi Pengurangan<a href="matriks.html#operasi-pengurangan" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk melakukan operasi penjumlahan matriks, kita cukup mengurangkan matriks a dan matriks b atau matriks b dengan matriks a, dengan syarat matriks yang akan kamu jumlahkan berada didalam sebuah variabel, contoh: B - A. Tapi sebelum mengenal lebih jauh mengenai operasi pengurangan pada matriks, akan lebih baik mengetahui skema perhitungan dari sebuah matriks terlebih dahulu.</p>
+<p><span class="math display">\[
+B_{} = \begin {bmatrix} 5&amp;6 \\  7&amp;8 \end{bmatrix} - A = \begin{bmatrix}1 &amp; 2\\ 3 &amp; 4\end{bmatrix} = \begin{bmatrix}1 - 5 &amp; 2 - 6\\ 3 - 7 &amp; 4 - 8\end{bmatrix} = \begin{bmatrix}4 &amp; 4\\ 4 &amp; 4\end{bmatrix}
+\]</span></p>
+<p>Dari contoh diatas dapat disimpulkan bahwa untuk menjumlahkan matriks dalam bahasa r kita hanya perlu menyimpan matrix a dan matrix b kedalam sebuah variabel lalu menjumlahkan kedua variabel tersebut dengan menggunakan operator penjumlahan.</p>
+<p>Dari contoh diatas dapat disimpulkan bahwa dalam melakukan operasi pengurangan pada matriks, yang kita kurangkan adalah masing – masing elemen matriks tersebut, syarat utama daripada pengurangan matriks ialah ordonya tidak boleh beda atau harus sama . Berikut adalah contoh pengurangan matriks dengan menggunakan bahasa r . A &lt;- c(1, 2, 3, 4) Matrix_A &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE) B &lt;- c(5,6,7,8) Matrix_B &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE) Matrix_A [,1] [,2] [,1] 1 2 [,2] 3 4 Matrix_B [,1] [,2] [,1] 5 6 [,2] 7 8 Matrix_B - Matrix_A [,1] [,2] [,1] 4 4 [,2] 4 4</p>
+<pre><code>Operasi Perkalian</code></pre>
+<p>Untuk melakukan operasi perkalian matriks, kamu cukup mengalikan matriks a dan matriks b ataupun sebaliknya akan tetapi harus memakai tanda ‘%’ setelah nama variabel untuk variabel a dan tanda ‘%’ sebelum variabel b dan ditengah – tengah tanda ‘%’ baru diselipkan tanda kali ’<em>’ seperti pada contoh berikut : matrix_A%</em>%matrix_B, dengan syarat matriks yang akan kamu jumlahkan berada didalam sebuah variabel . Tapi sebelum mengenal lebih jauh mengenai operasi perkalian pada matriks, akan lebih baik mengetahui terlebih dahulu skema dari perkalian matriks secara matematis .</p>
+<p>A=[■( 1&amp;2 @ 3&amp;4 )]×B=[■( 5&amp;6 @ 7&amp;8 )]=[ ■((1×5)+(2×7)&amp;(1×6)+(2×8)@(3×5)+(3×7)&amp;(3×6)+(3×8)) ]=[ ■(<a href="mailto:19&amp;22@43" class="email">19&amp;22@43</a>&amp;50) ]</p>
+<p>Dari contoh diatas dapat disimpulkan bahwa dalam megalikan matriks, berlaku aturan kolom dikali baris seperti yang dapat dilihat pada contoh dimana 1 pada matriks a dikalikan dengan 5 pada matriks b dan 2 dikalikan 7 yang mana bisa disebut dengan kolom (matriks a) dikalikan baris (matriks b) . Berikut akan diberikan contoh perkalian matriks dengan menggunakan bahasa r .</p>
+<pre><code>A &lt;- c(1, 2, 3, 4)
+Matrix_A &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE)
+B  &lt;- c(5,6,7,8)
+Matrix_B &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE)
+Matrix_A
+            [,1]    [,2]</code></pre>
+<p>[,1] 1 2 [,2] 3 4 Matrix_B [,1] [,2] [,1] 5 6 [,2] 7 8 Matrix_A%*%Matrix_B [,1] [,2] [,1] 19 22 [,2] 43 50</p>
+<pre><code>Operasi Pembagian</code></pre>
+<p>Untuk melakukan operasi penjumlahan matriks, kamu cukup menambahkan matriks a dan matriks b, dengan syarat matriks yang akan kamu jumlahkan berada didalam sebuah variabel, contoh : A + B . Tapi sebelum mengenal lebih jauh mengenai operasi penjumlahan pada matriks, akan lebih baik mengetahui skema perhitungan dari sebuah matriks .</p>
+<p>A=[■( 1&amp;2 @ 3&amp;4 )]+B=[■( 5&amp;6 @ 7&amp;8 )]=[ ■(<a href="mailto:1+5&amp;2+6@3" class="email">1+5&amp;2+6@3</a>+7&amp;4+8) ]=[ ■(<a href="mailto:6&amp;8@10" class="email">6&amp;8@10</a>&amp;12) ]</p>
+<p>Dari contoh diatas dapat disimpulkan bahwa dalam menjumlahkan matriks, yang kita jumlahkan adalah masing – masing elemen matriks tersebut, syarat utama daripada penjumlahan matriks ialah ordonya tidak boleh beda atau harus sama . Berikut akan diberikan contoh penjumlahan matriks dengan menggunakan bahasa r .] A &lt;- c(1, 2, 3, 4) Matrix_A &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE) B &lt;- c(5,6,7,8) Matrix_B &lt;- matrix(A, nrow = 2, ncol = 2, byrow = TRUE) Matrix_A [,1] [,2] [,1] 1 2 [,2] 3 4 Matrix_B [,1] [,2] [,1] 5 6 [,2] 7 8 Matrix_A / Matrix_B [,1] [,2] [,1] 0.2000000 0.3333333 [,2] 0.4285714 0.5000000</p>
+</div>
+</div>
+<div id="transpose-matriks" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Transpose Matriks<a href="matriks.html#transpose-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="apa-itu-transpose-matriks" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Apa itu Transpose Matriks?<a href="matriks.html#apa-itu-transpose-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Transpose adalah ketika pada sebuah matriks dilakukan pertukaran antara dimensi kolom dan barisnya. Contoh Transpose Matriks:</p>
+<p>Sebelum Di Transpose:</p>
+<p><span class="math inline">\(\begin{pmatrix} 55 &amp; 105 &amp; 45\\ 87 &amp; 64 &amp; 28 \end{pmatrix}\)</span></p>
+<p>Setelah Di Transpose:</p>
+<p><span class="math inline">\(\begin{bmatrix} 55 &amp; 87\\ 105 &amp; 64\\ 45 &amp; 28 \end{bmatrix}\)</span></p>
+</div>
+<div id="membuat-transpose-matriks" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Membuat Transpose Matriks<a href="matriks.html#membuat-transpose-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk melakukan transpose matriks kita bisa menggunakan fungsi t(). Contoh penggunaannya adalah sebagai berikut.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="matriks.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> transpose <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">55</span>, <span class="dv">105</span>, <span class="dv">45</span>, <span class="dv">87</span>, <span class="dv">64</span>, <span class="dv">28</span>), <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb19-2"><a href="matriks.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">t</span>(transpose)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]   55  105
+[2,]   45   87
+[3,]   64   28</code></pre>
+</div>
+</div>
+<div id="determinan-matriks" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Determinan Matriks<a href="matriks.html#determinan-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="apa-itu-determinan-matriks" class="section level3 hasAnchor" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Apa itu Determinan Matriks?<a href="matriks.html#apa-itu-determinan-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Dalam Aljabar Linear, determinan adalah nilai yang dapat dihitung dari unsur suatu matriks persegi. Determinan matriks A ditulis dengan tanda det, det A, atau | A |. Determinan dapat dianggap sebagai faktor pengskalaan transformasi yang digambarkan oleh matriks. Determinan Matriks sendiri dirumuskan sebagai berikut.</p>
+<p><span class="math inline">\(\begin{vmatrix}\;A\;\end{vmatrix}=\begin{vmatrix}\;a &amp; \;c\;\\ \;b &amp; \;d\; \end{vmatrix}= a\cdot d - b \cdot c\)</span></p>
+<p>Contoh:</p>
+<p><span class="math inline">\(\begin{vmatrix}\;A\;\end{vmatrix}=\begin{vmatrix}\;1 &amp; \;2\;\\ \;3 &amp; \;4\; \end{vmatrix}= 1\cdot 4 - 2 \cdot 3 = -2\)</span></p>
+<p>Contoh diatas adalah contoh pengaplikasian rumus determinan yaitu a.d-b.c terhadap matriks dengan ordo 2x2, bagaimana dengan ordo 3x3? Untuk mencari determinan dari matriks 3x3 ada banyak cara atau metode. Pada buku ini penulis akan menggunakan metode sarrus sebagai contoh.</p>
+<p>Metode sarrus disebut juga dengan metode anyaman, penulis sendiri menyebutnya sebagai metode silang karena pada metode sarrus ini kita akan menyilang matriks 3x3 dengan pola silang sebagai berikut.</p>
+<p>Berikut adalah contoh penggunaan dari metode sarrus.</p>
+<p><span class="math display">\[\begin{vmatrix}
+\;a &amp; b  &amp; c\;\\
+\;d &amp; e &amp; f\;\\
+\;g &amp; h &amp; i\;
+\end{vmatrix}\begin{matrix}
+\;a &amp; b \\
+\;d &amp; e \\
+\;g &amp; h
+\end{matrix}\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Pertama \rightarrow a.e.i\;\begin{vmatrix} \;\textbf{a} &amp; b &amp; c\;\\ \;d &amp; \textbf{e} &amp; f\;\\ \;g &amp; h &amp; \textbf{i}\; \end{vmatrix}\begin{matrix} \;a &amp; b \\ \;d &amp; e \\ \;g &amp; h \end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Kedua \rightarrow b.f.g\;\begin{vmatrix} \;a &amp; \textbf{b} &amp; c\;\\ \;d &amp; e &amp; \textbf{f}\;\\ \;g &amp; h &amp; i\; \end{vmatrix}\begin{matrix} \;a &amp; b \\ \;d &amp; e \\ \;\textbf{g} &amp; h \end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Ketiga \rightarrow c.d.h\;\begin{vmatrix} \;a &amp; b &amp; \textbf{c}\;\\ \;d &amp; e &amp; f\;\\ \;g &amp; h &amp; i\; \end{vmatrix}\begin{matrix} \;a &amp; b \\ \;\textbf{d} &amp; e \\ \;g &amp; \textbf{h} \end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Keempat \rightarrow c.e.g\;\begin{vmatrix} \;a &amp; b &amp; \textbf{c}\;\\ \;d &amp; \textbf{e} &amp; f\;\\ \;\textbf{g} &amp; h &amp; i\; \end{vmatrix}\begin{matrix} \;a &amp; b \\ \;d &amp; e \\ \;g &amp; h \end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Kelima \rightarrow a.f.h\;\begin{vmatrix} \;a &amp; b &amp; c\;\\ \;d &amp; \;e &amp; \textbf{f}\;\\ \;g &amp; \textbf{h} &amp; i\; \end{vmatrix}\begin{matrix} \;\textbf{a} &amp; b \\ \;d &amp; e \\ \;g &amp; h \end{matrix}
+\]</span></p>
+<p><span class="math display">\[
+\Rightarrow Silang \;Keenam \rightarrow b.d.i\;\begin{vmatrix} \;a &amp; b &amp; c\;\\ \;d &amp; \;e &amp; f\;\\ \;g &amp; h &amp; \textbf{i}\; \end{vmatrix}\begin{matrix} \;a &amp; \textbf{b} \\ \;\textbf{d} &amp; e \\ \;g &amp; h \end{matrix}
+\]</span> Pola silang pada contoh diatas jika dimasukkan kedalam rumus determinan akan menjadi seperti berikut.</p>
+<p><span class="math display">\[
+(a.e.i+b.f.g+c.d.h)-(c.e.g+a.f.h+b.d.i)
+\]</span></p>
+<p>Berikut adalah contoh pengaplikasian rumus diatas pada matriks ordo 3x3:</p>
+<p><span class="math display">\[
+x = \begin{bmatrix}
+\;3 &amp; \;2\; &amp; 1\;\\
+\;0 &amp; \;-1\; &amp; 5\;\\
+\;-2 &amp; \;-3\; &amp; 2\;
+\end{bmatrix}\\ \\
+\begin{vmatrix}
+\;x\;
+\end{vmatrix}
+= \begin{vmatrix}
+\;3 &amp; \;2\; &amp; 1\;\\
+\;0 &amp; \;-1\; &amp; 5\;\\
+\;-2 &amp; \;-3\; &amp; 2\;
+\end{vmatrix}\begin{matrix}
+\;3 &amp;\; 2\\
+\;0 &amp;\; -1\\
+\;-2 &amp;\; -3
+\end{matrix}\\ \\
+= (3.-1.2+2.5.2+1.0.-3)-(1.-1.-2+3.5.-3+2.0.2)\\ \\
+= (-6+(-20)+0)-(2+(-45)+0)=(-26)-(-43)\\
+= 17
+\]</span></p>
+</div>
+<div id="determinan-matriks-dalam-bahasa-r" class="section level3 hasAnchor" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Determinan Matriks Dalam Bahasa R<a href="matriks.html#determinan-matriks-dalam-bahasa-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk menentukan determinan dari sebuah matriks di bahasa r kita bisa menggunkan fungsi det(), berikut adalah contoh penggunaannya.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="matriks.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="sc">-</span><span class="dv">1</span>, <span class="dv">5</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="sc">-</span><span class="dv">3</span>, <span class="dv">2</span>), <span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb21-2"><a href="matriks.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">det</span>(x)</span></code></pre></div>
+<pre><code>[1] 17</code></pre>
+</div>
+</div>
+<div id="adjoint-matriks" class="section level2 hasAnchor" number="3.5">
+<h2><span class="header-section-number">3.5</span> Adjoint Matriks<a href="matriks.html#adjoint-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="apa-itu-adjoint-matriks" class="section level3 hasAnchor" number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Apa itu Adjoint Matriks?<a href="matriks.html#apa-itu-adjoint-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Adjoint matriks merupakan transpose dari suatu matriks yang elemen – elemennya merupakan kofaktor dari elemen – elemen matriks tersebut. Untuk menentukan adjoin dari sebuah matriks digunakan beberapa, cara ini bisa digunakan untuk mencari adjoin matriks dengan ordo 2x2.</p>
+<p><span class="math display">\[
+adj\begin{bmatrix}
+\;a &amp; b\;\\
+\;c &amp; d\;
+\end{bmatrix} \rightarrow\;
+\begin{bmatrix}
+\;d &amp; -b\;\\
+\;-c &amp; a\;
+\end{bmatrix}\\ \\
+adj\begin{bmatrix}
+\;1 &amp; 2\;\\
+\;3 &amp; 4\;
+\end{bmatrix} \rightarrow\;
+\begin{bmatrix}
+\;4 &amp; -2\;\\
+\;-3 &amp; 1\;
+\end{bmatrix}
+\]</span></p>
+<p>Menentukan adjoin matriks dengan ordo 2x2 tidak begitu sulit seperti yang dapat kamu lihat pada contoh diatas, berikutnya saya akan menjelaskan bagimana mencari adjoin untuk matriks dengan ordo 3x3. Berikut adalah contoh bagaiman menentukan adjoint matriks.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix}\\
+\begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix}\\
+\begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; c\;\\
+\;d &amp; \;e\; &amp; f\;\\
+\;g &amp; \;h\; &amp; i\;
+\end{bmatrix}
+\end{bmatrix}
+\]</span></p>
+<p>Dari pola diatas kita akan mencari harga minornya dengan cara:</p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(a_{11}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 2 elemen matriks baris 1 kolom 3 elemen matriks baris 2 kolom 1 elemen matriks baris 3 kolom 1</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[\begin{bmatrix}
+\;e &amp; f\;\\
+\;h &amp;  i\;
+\end{bmatrix}\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(b_{12}\)</span>:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;d &amp; f\;\\
+\;g &amp;  i\;
+\end{bmatrix}
+\]</span> <span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(c_{13}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 1 elemen matriks baris 1 kolom 3 elemen matriks baris 2 kolom 2 elemen matriks baris 3 kolom 2</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;d &amp; e\;\\
+\;g &amp; h\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(d_{21}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 1 elemen matriks baris 1 kolom 2 elemen matriks baris 2 kolom 3 elemen matriks baris 3 kolom 3</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;b &amp; c\;\\
+\;h &amp; i\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(e_{22}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 1 elemen matriks baris 2 kolom 2 elemen matriks baris 2 kolom 3 elemen matriks baris 3 kolom 1</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a &amp; c\;\\
+\;g &amp; i\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(f_{23}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 2 elemen matriks baris 2 kolom 1 elemen matriks baris 2 kolom 3 elemen matriks baris 3 kolom 2</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a &amp; b\;\\
+\;g &amp; h\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(g_{31}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 3 elemen matriks baris 2 kolom 1 elemen matriks baris 2 kolom 2 elemen matriks baris 3 kolom 3</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;b &amp; c\;\\
+\;e &amp; f\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(h_{32}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 1 elemen matriks baris 2 kolom 3 elemen matriks baris 3 kolom 2 elemen matriks baris 3 kolom 3</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a &amp; c\;\\
+\;d &amp; f\;
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(\Rightarrow\)</span> Mencoret elemen – elemen di <span class="math inline">\(i_{33}\)</span>:</p>
+<p>elemen matriks baris 1 kolom 2 elemen matriks baris 2 kolom 2 elemen matriks baris 3 kolom 1 elemen matriks baris 3 kolom 3</p>
+<p>sehingga didapat matriks baru yaitu:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a &amp; b\;\\
+\;d &amp; e\;
+\end{bmatrix}
+\]</span></p>
+<p>Berikut adalah bentuk lengkapnya, dimana elemen matriks yang berwarna hitam merupakan elemen yang dicoret sedang yang berwarana merah merupakan matriks baru yang terbentuk dari matriks yang dicoret.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\begin{bmatrix}
+\;\begin{bmatrix}
+\; a_{11} \;
+\end{bmatrix} &amp; \;b\; &amp; c\;\\
+\;d &amp; \;{\color{Red} e}\; &amp; {\color{Red} f}\;\\
+\;g &amp; \;{\color{Red} h}\; &amp; {\color{Red} i}\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;\begin{bmatrix}
+\; b_{12} \;
+\end{bmatrix}\; &amp; c\;\\
+\;{\color{Red} d} &amp; \;e\; &amp; {\color{Red} f}\;\\
+\;{\color{Red} g} &amp; \;h\; &amp; {\color{Red} i}\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;a &amp; \;b\; &amp; \begin{bmatrix}
+\; c_{13} \;
+\end{bmatrix}\;\\
+\;{\color{Red} d} &amp; \;{\color{Red} e}\; &amp; f\;\\
+\;{\color{Red} g} &amp; \;{\color{Red} h}\; &amp; i\;
+\end{bmatrix}\\
+\begin{bmatrix}
+\;a &amp; \;{\color{Red} b}\; &amp; {\color{Red} c}\;\\
+\;\begin{bmatrix}
+\; d_{21} \;
+\end{bmatrix} &amp; \;e\; &amp; f\;\\
+\;g &amp; \;{\color{Red} h}\; &amp; {\color{Red} i}\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;{\color{Red} a} &amp; \;b\; &amp; {\color{Red} c}\;\\
+\;d &amp; \;\begin{bmatrix}
+\; e_{22} \;
+\end{bmatrix}\; &amp; f\;\\
+\;{\color{Red} g} &amp; \;h\; &amp; {\color{Red} i}\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;{\color{Red} a} &amp; \;{\color{Red} b}\; &amp; c\;\\
+\;d &amp; \;e\; &amp; \begin{bmatrix}
+\; f_{23} \;
+\end{bmatrix}\;\\
+\;{\color{Red} g} &amp; \;{\color{Red} h}\; &amp; i\;
+\end{bmatrix}\\
+\begin{bmatrix}
+\;a &amp; \;{\color{Red} b}\; &amp; {\color{Red} c}\;\\
+\;d &amp; \;{\color{Red} e}\; &amp; {\color{Red} f}\;\\
+\;\begin{bmatrix}
+\; g_{31} \;
+\end{bmatrix} &amp; \;h\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;{\color{Red} a} &amp; \;b\; &amp; {\color{Red} c}\;\\
+\;{\color{Red} d} &amp; \;e\; &amp; {\color{Red} f}\;\\
+\;g &amp; \;\begin{bmatrix}
+\; h_{32} \;
+\end{bmatrix}\; &amp; i\;
+\end{bmatrix} &amp; \begin{bmatrix}
+\;{\color{Red} a} &amp; \;{\color{Red} b}\; &amp; c\;\\
+\;{\color{Red} d} &amp; \;{\color{Red} e}\; &amp; f\;\\
+\;g &amp; \;h\; &amp; \begin{bmatrix}
+\; i_{33} \;
+\end{bmatrix}\;
+\end{bmatrix}
+\end{bmatrix}
+\]</span> <span class="math display">\[
+\Rightarrow a_{11} = \begin{bmatrix}
+\;{\color{Red} e} &amp; {\color{Red} f}\;\\
+\;{\color{Red} h} &amp; {\color{Red} i}\;
+\end{bmatrix}
+\\
+\Rightarrow b_{12} = \begin{bmatrix}
+\;{\color{Red} d} &amp; {\color{Red} f}\;\\
+\;{\color{Red} g} &amp; {\color{Red} i}\;
+\end{bmatrix}
+\\
+\Rightarrow c_{13} = \begin{bmatrix}
+\;{\color{Red} d} &amp; {\color{Red} e}\;\\
+\;{\color{Red} g} &amp; {\color{Red} h}\;
+\end{bmatrix}
+\\
+\Rightarrow d_{21} = \begin{bmatrix}
+\;{\color{Red} b} &amp; {\color{Red} c}\;\\
+\;{\color{Red} h} &amp; {\color{Red} i}\;
+\end{bmatrix}
+\\
+\Rightarrow e_{22} = \begin{bmatrix}
+\;{\color{Red} a} &amp; {\color{Red} c}\;\\
+\;{\color{Red} g} &amp; {\color{Red} i}\;
+\end{bmatrix}
+\\
+\Rightarrow f_{23} = \begin{bmatrix}
+\;{\color{Red} a} &amp; {\color{Red} b}\;\\
+\;{\color{Red} g} &amp; {\color{Red} h}\;
+\end{bmatrix}
+\\
+\Rightarrow g_{31} = \begin{bmatrix}
+\;{\color{Red} b} &amp; {\color{Red} c}\;\\
+\;{\color{Red} e} &amp; {\color{Red} f}\;
+\end{bmatrix}
+\\
+\Rightarrow h_{32} = \begin{bmatrix}
+\;{\color{Red} a} &amp; {\color{Red} b}\;\\
+\;{\color{Red} d} &amp; {\color{Red} f}\;
+\end{bmatrix}
+\\
+\Rightarrow i_{33} = \begin{bmatrix}
+\;{\color{Red} a} &amp; {\color{Red} b}\;\\
+\;{\color{Red} d} &amp; {\color{Red} e}\;
+\end{bmatrix}
+\]</span></p>
+<p>Setelah menentukan nilai minor, maka selanjutnya yang harus dilakukan adalah mentransformasikan nilai – nilai kedalam bentuk seperti berikut . penempatannya sendiri harus berurutan dimulai dari elemen – elemen yang ada di matrix a_11 sampai dengan i_33 seperti berikut.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;+\; \begin{vmatrix}
+\;e &amp; f\;\\
+\;h &amp; i\;
+\end{vmatrix} &amp; \;-\;\begin{vmatrix}
+\;d &amp; f\;\\
+\;g &amp; i\;
+\end{vmatrix} &amp; \;+\;\begin{vmatrix}
+\;d &amp; e\;\\
+\;g &amp; h\;
+\end{vmatrix}\\
+\;-\;\begin{vmatrix}
+\;b &amp; c\;\\
+\;h &amp; i\;
+\end{vmatrix} &amp; \;+\; \begin{vmatrix}
+\;a &amp; c\;\\
+\;g &amp; i\;
+\end{vmatrix}&amp; \;-\;\begin{vmatrix}
+\;a &amp; b\;\\
+\;g &amp; h\;\end{vmatrix}\\
+\;+\; \begin{vmatrix}
+\;b &amp; c\;\\
+\;e &amp; f\;
+\end{vmatrix} &amp; \;-\;\begin{vmatrix}
+\;g &amp; c\;\\
+\;d &amp; f\;
+\end{vmatrix} &amp; \;+\;\begin{vmatrix}
+\;a &amp; b\;\\
+\;d &amp; e\;
+\end{vmatrix}
+\end{bmatrix}
+\]</span></p>
+<p>Menetukan matriks kofaktor Selanjutnya adalah menetukan matriks kofaktornya dengan cara menghitung masing – masing determinan dari matriks yang sudah ditentukan kofaktornya sebelumnya sehingga menjadi:</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a_{11}\; &amp; \;b_{12}\; &amp; \;c_{13}\; \\
+\;d_{21}\; &amp; \;e_{22}\; &amp; \;f_{23}\;\\
+\;g_{31}\; &amp; \;h_{32}\; &amp; \;i_{33}\;
+\end{bmatrix}
+\]</span></p>
+<p>Dan terakhir yang perlu kamu lakukan adalah menetukan adjoin matriksnya dengan cara mentranspose matriks kofaktor seperti pada contoh berikut.</p>
+<p><span class="math display">\[
+\begin{bmatrix}
+\;a_{11}\; &amp; \;d_{21}\; &amp; \;g_{31}\; \\
+\;b_{12}\; &amp; \;e_{22}\; &amp; \;h_{32}\;\\
+\;c_{13}\; &amp; \;f_{23}\; &amp; \;i_{33}\;
+\end{bmatrix}
+\]</span></p>
+</div>
+</div>
+<div id="invers-matriks" class="section level2 hasAnchor" number="3.6">
+<h2><span class="header-section-number">3.6</span> Invers Matriks<a href="matriks.html#invers-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="apa-itu-invers-matriks" class="section level3 hasAnchor" number="3.6.1">
+<h3><span class="header-section-number">3.6.1</span> Apa itu Invers Matriks?<a href="matriks.html#apa-itu-invers-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Invers Matriks adalah sebuah kebalikan (invers) dari kedua matriks dimana apabila matriks tersebut dikalikan akan menghasilkan matriks persegi (<span class="math inline">\(AB = BA = l_{n}\)</span>). Invers dilambangkan dengan tanda pangkat ‘-1’ setelah hurufnya . Invers Matriks sendiri dirumuskan dengan:</p>
+<p><span class="math display">\[
+A^{-1} = \frac{1}{|\; A \;|}\cdot adjA
+\]</span></p>
+<div id="menentukan-invers-matriks-dengan-ordo-2x2" class="section level4 hasAnchor" number="3.6.1.1">
+<h4><span class="header-section-number">3.6.1.1</span> Menentukan Invers Matriks Dengan Ordo 2x2<a href="matriks.html#menentukan-invers-matriks-dengan-ordo-2x2" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math inline">\(Rumus: \;A^{-1} = \frac{1}{|\; A \;|}\cdot adjA\)</span></p>
+<p>Contoh 1:</p>
+<p><span class="math inline">\(A = \begin{bmatrix}\;3\; &amp; \;7\;\\ \;8\; &amp; \;5\;\end{bmatrix}\\|\;A\;| = 3.5 - 8.7 = -41\\adjA = \begin{bmatrix}\;5\; &amp; \;-7\;\\ \;-8\; &amp; \;3\;\end{bmatrix}\\A^{-1} = \frac{1}{-41}\cdot \begin{bmatrix}\;5\; &amp; \;-7\;\\ \;-8\; &amp; \;3\; \end{bmatrix}\\= \begin{bmatrix}\;0.1219512\; &amp; \;0.17073171\; \\\;0.1951220\; &amp; \;0.07317073\;\end{bmatrix}\)</span></p>
+<p>Contoh 2:</p>
+<p><span class="math inline">\(A = \begin{bmatrix}\;2\; &amp; \;1\;\\ \;4\; &amp; \;3\;\end{bmatrix}\\|\;A\;| = 2.3 - 4.1 = 2\\adjA = \begin{bmatrix}\;3\; &amp; \;-1\;\\ \;-4\; &amp; \;2\;\end{bmatrix}\\A^{-1} = \frac{1}{2}\cdot \begin{bmatrix}\;3\; &amp; \;-1\;\\ \;-4\; &amp; \;2\; \end{bmatrix}\\= \begin{bmatrix}\;1.5\; &amp; \;-0.5\; \\\;2\; &amp; \;1\;\end{bmatrix}\)</span></p>
+</div>
+<div id="menentukan-invers-matriks-dengan-ordo-3x3" class="section level4 hasAnchor" number="3.6.1.2">
+<h4><span class="header-section-number">3.6.1.2</span> Menentukan Invers Matriks Dengan Ordo 3x3<a href="matriks.html#menentukan-invers-matriks-dengan-ordo-3x3" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><span class="math inline">\(Rumus: \;A^{-1} = \frac{1}{|\; A \;|}\cdot adjA\)</span></p>
+<p><span class="math inline">\(A = \begin{bmatrix}\;2\; &amp; \;-2\; &amp; \;4\;\\ \;1\; &amp; \;5\; &amp; \;-4\;\\ \;-3\; &amp; \;4\; &amp; \;1\;\end{bmatrix}\\|\;A\;| = \begin{bmatrix}\;2\; &amp; \;-2\; &amp; \;4\;\\ \;1\; &amp; \;5\; &amp; \;-4\;\\ \;-3\; &amp; \;4\; &amp; \;1\;\end{bmatrix}\begin{matrix}2 &amp; -2\\ 1 &amp; 5\\ -3 &amp; 4\end{matrix}\\= (2.5.1 + -2.-4.-3+4.1.4)\\= (10 + -24 + 16) - (-60 + -32 + -2)\\= (2) - (-94) = 96\)</span></p>
+<p><span class="math inline">\(adjA = \begin{bmatrix}\;2\; &amp; \;-2\; &amp; \;4\;\\ \;1\; &amp; \;5\; &amp; \;-4\;\\ \;-3\; &amp; \;4\; &amp; \;1\;\end{bmatrix}\)</span></p>
+<p><span class="math inline">\(=\;\begin{bmatrix}\begin{bmatrix}\;\begin{bmatrix}\; 2_{11} \;\end{bmatrix} &amp; \;b\; &amp; c\;\\ \;d &amp; \;{\color{Red} 5}\; &amp; {\color{Red} -4}\;\\ \;g &amp; \;{\color{Red} 4}\; &amp; {\color{Red} 1}\;\end{bmatrix} &amp; \begin{bmatrix}\;a &amp; \;\begin{bmatrix}\; -2_{12} \;\end{bmatrix}\; &amp; c\;\\ \;{\color{Red} 1} &amp; \;e\; &amp; {\color{Red} -4}\;\\ \;{\color{Red} -3} &amp; \;h\; &amp; {\color{Red} 1}\;\end{bmatrix} &amp; \begin{bmatrix}\;a &amp; \;b\; &amp; \begin{bmatrix}\; c_{13} \;\end{bmatrix}\;\\ \;{\color{Red} 1} &amp; \;{\color{Red} 5}\; &amp; f\;\\ \;{\color{Red} -3} &amp; \;{\color{Red} 4}\; &amp; i\;\end{bmatrix}\\ \begin{bmatrix}\;a &amp; \;{\color{Red} -2}\; &amp; {\color{Red} 4}\;\\ \;\begin{bmatrix}\; 1_{21} \;\end{bmatrix} &amp; \;e\; &amp; f\;\\ \;g &amp; \;{\color{Red} 5}\; &amp; {\color{Red} 1}\;\end{bmatrix} &amp; \begin{bmatrix}\;{\color{Red} 2} &amp; \;b\; &amp; {\color{Red} 4}\;\\ \;d &amp; \;\begin{bmatrix}\; 5_{22} \;\end{bmatrix}\; &amp; f\;\\ \;{\color{Red} -3} &amp; \;h\; &amp; {\color{Red} 1}\;\end{bmatrix} &amp; \begin{bmatrix}\;{\color{Red} 2} &amp; \;{\color{Red} -2}\; &amp; c\;\\ \;d &amp; \;e\; &amp; \begin{bmatrix}\; -4_{23} \;\end{bmatrix}\;\\ \;{\color{Red} -3} &amp; \;{\color{Red} 4}\; &amp; i\;\end{bmatrix}\\ \begin{bmatrix}\;a &amp; \;{\color{Red} -2}\; &amp; {\color{Red} 4}\;\\ \;d &amp; \;{\color{Red} 5}\; &amp; {\color{Red} -4}\;\\ \;\begin{bmatrix}\; -3_{31} \;\end{bmatrix} &amp; \;h\; &amp; i\;\end{bmatrix} &amp; \begin{bmatrix}\;{\color{Red} 2} &amp; \;b\; &amp; {\color{Red} 4}\;\\ \;{\color{Red} 1} &amp; \;e\; &amp; {\color{Red} -4}\;\\ \;g &amp; \;\begin{bmatrix}\; 4_{32} \;\end{bmatrix}\; &amp; i\;\end{bmatrix} &amp; \begin{bmatrix}\;{\color{Red} 2} &amp; \;{\color{Red} -2}\; &amp; c\;\\ \;{\color{Red} 1} &amp; \;{\color{Red} 5}\; &amp; f\;\\ \;g &amp; \;h\; &amp; \begin{bmatrix}\; 1_{33} \;\end{bmatrix}\;\end{bmatrix}\end{bmatrix}\)</span></p>
+<p><span class="math inline">\(=\begin{bmatrix}\;+\; \begin{vmatrix}\;5 &amp; -4\;\\ \;4 &amp; 1\;\end{vmatrix} &amp; \;-\;\begin{vmatrix}\;1 &amp; -4\;\\ \;-3 &amp; 1\;\end{vmatrix} &amp; \;+\;\begin{vmatrix}\;1 &amp; 5\;\\ \;-3 &amp; 4\;\end{vmatrix}\\ \;-\;\begin{vmatrix}\;-2 &amp; 4\;\\ \;5 &amp; 1\;\end{vmatrix} &amp; \;+\; \begin{vmatrix}\;2 &amp; 4\;\\ \;-3 &amp; 1\;\end{vmatrix}&amp; \;-\;\begin{vmatrix}\;2 &amp; -2\;\\ \;-3 &amp; 4\;\end{vmatrix}\\ \;+\; \begin{vmatrix}\;-2 &amp; 4\;\\ \;5 &amp; -4\;\end{vmatrix} &amp; \;-\;\begin{vmatrix}\;2 &amp; 4\;\\ \;1 &amp; -4\;\end{vmatrix} &amp; \;+\;\begin{vmatrix}\;2 &amp; -2\;\\ \;1 &amp; 5\;\end{vmatrix}\end{bmatrix}^{T}\)</span></p>
+<p><span class="math inline">\(=\begin{bmatrix}\;(5.1 - (-4.4))\; &amp; \;(1.1 - (-4.-3))\; &amp; \;(1.4-5.-3)\;\\ \;((-2.1) - 4.5)\; &amp; \;(2.1 - 4. -3)\; &amp; \;(2.4-(-2.-3))\;\\ \;((-2.-4) -4.5)\; &amp; \;(2.-4-4.1)\; &amp; \;(2.5-(-2.1))\;\end{bmatrix}^{T}\)</span></p>
+<p><span class="math inline">\(=\begin{bmatrix}\;(5-(16))\; &amp; \;(1-12)\; &amp; \;(4-(-15))\;\\ \;((-2)-20)\; &amp; \;(2-(-12))\; &amp; \;(8-6)\;\\ \;((8-20)\; &amp; \;(-8-4)\; &amp; \;(10-(-2))\;\end{bmatrix}^{T}\)</span></p>
+<p><span class="math inline">\(= \begin{bmatrix}\;21\; &amp; \;-11\; &amp; \;19\;\\ \;22\; &amp; \;14\; &amp; \;2\;\\ \;-12\; &amp; \;-12\; &amp; \;12\;\end{bmatrix}^{T}\\= \begin{bmatrix}\;-3\; &amp; \;22\; &amp; \;12\;\\ \;-11\; &amp; \;14\; &amp; \;12\;\\ \;-19\; &amp; \;2\; &amp; \;12\;\end{bmatrix}^{T}\\\)</span></p>
+<p><span class="math inline">\(= \begin{bmatrix}\;21\; &amp; \;-11\; &amp; \;19\;\\ \;22\; &amp; \;14\; &amp; \;2\;\\ \;-12\; &amp; \;-12\; &amp; \;12\;\end{bmatrix}^{T}\\= \begin{bmatrix}\;-3\; &amp; \;22\; &amp; \;12\;\\ \;-11\; &amp; \;14\; &amp; \;12\;\\ \;-19\; &amp; \;2\; &amp; \;12\;\end{bmatrix}^{T}\\A^{-1} = \frac{1}{96}\cdot \begin{bmatrix}\;-3\; &amp; \;22\; &amp; \;-12\;\\ \;-11\; &amp; \;14\; &amp; \;-12\;\\ \;19\; &amp; \;2\; &amp; \;-12\;\end{bmatrix}\\=\begin{bmatrix}\;0.2187500\; &amp; \;0.18750000\; &amp; \;-0.125\;\\ \;0.1145833\; &amp; \;0.14583333\; &amp; \;0.125\;\\ \;0.1979167\; &amp; \;-0.02083333\; &amp; \;0.125\;\end{bmatrix}\)</span></p>
+</div>
+</div>
+<div id="inverse-matriks-dalam-bahasa-r" class="section level3 hasAnchor" number="3.6.2">
+<h3><span class="header-section-number">3.6.2</span> Inverse Matriks Dalam Bahasa R<a href="matriks.html#inverse-matriks-dalam-bahasa-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk mencari nilai invers dalam bahasa r, kita bisa menggunakan fungsi solve(), berikut adalah contoh penggunaannya.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="matriks.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">3</span>), <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb23-2"><a href="matriks.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">solve</span>(x)</span></code></pre></div>
+<pre><code>     [,1] [,2]
+[1,]    3   -5
+[2,]   -1    2</code></pre>
+</div>
+</div>
+<div id="solusi-persamaan-linear-dengan-matriks" class="section level2 hasAnchor" number="3.7">
+<h2><span class="header-section-number">3.7</span> Solusi Persamaan Linear Dengan Matriks<a href="matriks.html#solusi-persamaan-linear-dengan-matriks" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Matriks dapat digunakan untuk menyelesaikan suatu sistem persamaan linear baik itu spldv atau spltv. Untuk menentukan solusi penyelesaian dari sistem linear dalam matriks kita bisa menggunakan rumus sebagai berikut.</p>
+<p><span class="math inline">\(AX = B\\ \\ dimana\\ \\ X = A^{-1}.B\)</span></p>
+<p>Berikut adalah contoh pengaplikasian rumus diatas:</p>
+<p><span class="math display">\[ AX = B \rightarrow\begin{bmatrix}
+\;3\; &amp; \;2\;\\
+\;1\; &amp; \;-2\;
+\end{bmatrix}\begin{bmatrix}
+\;x\; \\
+\;y\;
+\end{bmatrix}
+\begin{bmatrix}
+\;14\; \\
+\;2\;
+\end{bmatrix}\\
+\\ X = A^{-1}.B \rightarrow\begin{bmatrix}
+\;x\; \\
+\;y\;
+\end{bmatrix}
+\begin{bmatrix}
+\;-2\; &amp; \;-2\;\\
+\;-1\; &amp; \;3\;
+\end{bmatrix}\begin{bmatrix}
+\;14\; \\
+\;2\;
+\end{bmatrix}
+\\ = \frac{1}{-8}
+\begin{bmatrix}
+\;-32\; \\
+\;-8\;
+\end{bmatrix}
+\\ =
+\begin{bmatrix}
+\;4\; \\
+\;1\;
+\end{bmatrix}\\
+\therefore
+\begin{Bmatrix}
+\begin{matrix}
+x = 4\\
+y = 1
+\end{matrix} &amp; \rightarrow &amp; \begin{matrix}
+3(4) + 2(1)=14\\
+4-2)1=2
+\end{matrix}
+\end{Bmatrix}
+\]</span></p>
+<div id="solusi-persamaan-linear-dengan-bahasa-r" class="section level3 hasAnchor" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> Solusi Persamaan Linear Dengan Bahasa R<a href="matriks.html#solusi-persamaan-linear-dengan-bahasa-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Untuk mencari solusi dari sebuah persamaan linear, dalam bahasa r kita harus menggunakan third party packages yaitu pracma.</p>
+<p>Ketikkan kode berikut di r console untuk melakukan instalasi: Install.packages(“pracma”).</p>
+<p>Setelah berhasil melakukan instalasi terhadap package ‘Pracma’, sekarang selanjutnya adalah menggunakannya . Untuk menggunakan package ini kamu harus memanggil package ini terlebih dahulu di r studio / r console dengan menuliskan “library(pracma)”.</p>
+<p>Untuk melakukan operasi persamaan linear dengan pracma adalah ubah bentuk dari persamaan linear yang akan kamu tentukan solusinya kedalam bentuk matriks. Penulis akan menggunakan sistem persamaan berikut sebagai contoh pada bagian ini.</p>
+<p><span class="math display">\[2x \;+\; y \;= \;1\\3x \;+\; 4y\; = \;14\]</span></p>
+<p>Untuk mencari solusi penyelesaian dari sistem persamaan tersebut. Untuk menentukan solusi dari persamaanya kita bisa menggunakan fungsi rref(), berikut adalah contoh penggunaannya.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="matriks.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">library</span>(pracma)</span>
+<span id="cb25-2"><a href="matriks.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> spldv <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">14</span>), <span class="dv">2</span>, <span class="dv">3</span>)</span>
+<span id="cb25-3"><a href="matriks.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">rref</span>(spldv)</span></code></pre></div>
+<pre><code>     [,1] [,2] [,3]
+[1,]    1    0 -0.4
+[2,]    0    1  4.8</code></pre>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="variabel-dan-vektor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="factor.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/03-parts.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
