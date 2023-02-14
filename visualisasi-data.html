@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="" xml:lang="">
 <head>
 
@@ -311,7 +311,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">13.1</span> Plot<a href="visualisasi-data.html#plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Untuk memvisualisasikan data kedalam bentuk plot bisa menggunakan fungsi plot() yang mana format penulisannya adalah sebagai berikut.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="visualisasi-data.html#cb98-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">plot</span>(<span class="fu">density</span>(BOD[,<span class="dv">1</span>]))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-85-1.png" width="672" /></p>
 <p>Kamu juga bisa hanya memasukkan satu objek saja pada saat menggunakan plot. Berikut adalah contoh penerapan sintaks diatas pada dataset BOD untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 </div>
 <div id="barplot" class="section level2 hasAnchor" number="13.2">
@@ -321,36 +321,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Berikut adalah contoh penerapan sintaks diatas pada dataset BOD di kolom ‘Time’ (Kolom pertama dari dataset BOD) untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 <p>Secara Horizontal</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="visualisasi-data.html#cb99-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">barplot</span>(BOD[,<span class="dv">1</span>], <span class="at">horiz=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-87-1.png" width="672" /></p>
 <p>Secara Vertikal</p>
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="visualisasi-data.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">barplot</span>(BOD[,<span class="dv">1</span>], <span class="at">horiz=</span><span class="cn">FALSE</span>)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-88-1.png" width="672" /></p>
 <p>##BoxPlot</p>
 <p>Untuk memvisualisasikan data kedalam bentuk BoxPlot bisa menggunakan fungsi boxplot() yang mana format penulisannya adalah sebagai berikut.</p>
 <p>Kamu juga bisa hanya memasukkan satu objek saja pada saat menggunakan boxplot.</p>
 <p>Berikut adalah contoh penerapan sintaks diatas pada dataset BOD untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="visualisasi-data.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">boxplot</span>(BOD)</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-90-1.png" width="672" /></p>
 <p>##Pie</p>
 <p>Untuk memvisualisasikan data kedalam bentuk pie bisa menggunakan fungsi pie() yang mana format penulisannya adalah sebagai berikut.</p>
 <p>Kamu juga bisa hanya memasukkan satu objek saja pada saat menggunakan boxplot.</p>
 <p>Berikut adalah contoh penerapan sintaks diatas pada dataset BOD untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="visualisasi-data.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">pie</span>(<span class="fu">c</span>(<span class="dv">65</span>,<span class="dv">35</span>),<span class="fu">c</span>(<span class="st">&quot;Programming&quot;</span>, <span class="st">&quot;Math&quot;</span>))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-92-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-92-1.png" width="672" /></p>
 </div>
 <div id="histogram" class="section level2 hasAnchor" number="13.3">
 <h2><span class="header-section-number">13.3</span> Histogram<a href="visualisasi-data.html#histogram" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Untuk memvisualisasikan data kedalam bentuk histogram bisa menggunakan fungsi hist() yang mana format penulisannya adalah sebagai berikut.</p>
 <p>Berikut adalah contoh penerapan sintaks diatas pada dataset BOD untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="visualisasi-data.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">hist</span>(BOD[,<span class="dv">1</span>])</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-94-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-94-1.png" width="672" /></p>
 </div>
 <div id="density-plot" class="section level2 hasAnchor" number="13.4">
 <h2><span class="header-section-number">13.4</span> Density Plot<a href="visualisasi-data.html#density-plot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Untuk memvisualisasikan data kedalam bentuk Density kita bisa menggunakan fungsi plot(density()) yang mana format penulisannya adalah sebagai berikut.</p>
 <p>Berikut adalah contoh penerapan sintaks diatas pada dataset BOD untuk menampilkan data pada dataset tersebut kedalam bentuk grafik.</p>
 <div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="visualisasi-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="sc">&gt;</span> <span class="fu">plot</span>(<span class="fu">density</span>(BOD[,<span class="dv">1</span>]))</span></code></pre></div>
-<p><img src="_main_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<p><img src="images/unnamed-chunk-96-1.png" width="672" /></p>
 </div>
 </div>
             </section>
