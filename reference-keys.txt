@@ -103,6 +103,3 @@ plot
 barplot
 histogram
 density-plot
-data-frame
-list
-array
